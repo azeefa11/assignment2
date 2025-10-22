@@ -22,7 +22,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="book.html">Book</a></li>
             <li><a href="packages.html">Packages</a></li>
-            <li><a href="bestplaces.html">Best Places</a></li>
+            <li><a href="bestplaces.html">Best Places</a></li> 
             <li><a href="contact.html">Contact</a></li>
             
         </ul>
@@ -57,11 +57,11 @@
 
             // Hamburger Toggle Logic
             menuToggle.addEventListener('click', function() {
-                navBarNav.classList.toggle('active');
+                navbarNav.classList.toggle('active');
                 const icon = menuToggle.querySelector('i');
                 icon.classList.toggle('fa-bars');
                 icon.classList.toggle('fa-times');
-                if (navBarNav.classList.contains('active')) {
+                if (navbarNav.classList.contains('active')) {
                     loginDropdown.classList.remove('active');
                 }
             });
@@ -71,7 +71,7 @@
                 event.preventDefault(); 
                 loginDropdown.classList.toggle('active');
                 if (loginDropdown.classList.contains('active')) {
-                    navBarNav.classList.remove('active');
+                    navbarNav.classList.remove('active');
                     const icon = menuToggle.querySelector('i');
                     icon.classList.remove('fa-times');
                     icon.classList.add('fa-bars');
@@ -95,9 +95,10 @@
                 loginForm.reset(); 
             });
 
-            // Explore Button Logic
+          
             document.getElementById('exploreButton').addEventListener('click', function() {
-                alert("Exploring now! (Redirect to search area or packages page...)");
+                // This line now redirects the user to the 'packages.html' page.
+                window.location.href = 'packages.html'; 
             });
         });
     </script>
