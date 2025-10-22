@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeTrip | Adventure Awaits</title>
+    git commit -m "first commit"
+git commit -m "first commit"
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">MakeTrip</a>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <ul class="nav-links" id="navbarNav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="bestplaces.html">Best Places</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            
+        </ul>
+        
+        <div class="nav-icons">
+            <a href="#" class="user-icon" id="userIcon"><i class="fas fa-user-circle"></i></a> 
+            
+            <div class="login-dropdown" id="loginDropdown">
+                <form id="loginForm">
+                    <input type="email" id="loginEmail" placeholder="Enter Email" required>
+                    <input type="password" id="loginPassword" placeholder="Enter password" required>
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <h1>Best Vacation Destination</h1>
+        <p>Your Holiday Dreams</p> 
+        <button class="explore-btn" id="exploreButton">Explore</button>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const menuToggle = document.getElementById('menuToggle');
+            const navBarNav = document.getElementById('navbarNav');
+            const userIcon = document.getElementById('userIcon');
+            const loginDropdown = document.getElementById('loginDropdown');
+            const loginForm = document.getElementById('loginForm');
+
+            // Hamburger Toggle Logic
+            menuToggle.addEventListener('click', function() {
+                navBarNav.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                if (navBarNav.classList.contains('active')) {
+                    loginDropdown.classList.remove('active');
+                }
+            });
+            
+            // User Icon / Login Dropdown Toggle Logic
+            userIcon.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                loginDropdown.classList.toggle('active');
+                if (loginDropdown.classList.contains('active')) {
+                    navBarNav.classList.remove('active');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close login dropdown if clicked outside
+            document.addEventListener('click', function(event) {
+                if (!loginDropdown.contains(event.target) && !userIcon.contains(event.target) && loginDropdown.classList.contains('active')) {
+                    loginDropdown.classList.remove('active');
+                }
+            });
+
+            // Handle Login Form Submission
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                alert(`Login attempt with Email: ${email}, Password: ${password}\n(In a real application, this would send data to a server)`);
+                loginDropdown.classList.remove('active'); 
+                loginForm.reset(); 
+            });
+
+            // Explore Button Logic
+            document.getElementById('exploreButton').addEventListener('click', function() {
+                alert("Exploring now! (Redirect to search area or packages page...)");
+            });
+        });
+    </script>
+</body>
+</html>

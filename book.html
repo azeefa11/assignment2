@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeTrip | Book Your Place</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* CSS for Book Page + Responsive Menu */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            padding-top: 60px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: #ff8c00;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            font-size: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            padding: 0 5px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+            border-bottom: 2px solid white;
+            padding-bottom: 3px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: white;
+        }
+
+        /* Book Content */
+        .book-container {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .main-heading span {
+            color: #ff8c00;
+        }
+
+        .book-content {
+            display: flex;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .book-image-side {
+            flex: 1;
+            min-width: 40%;
+        }
+
+        .book-image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .book-form-side {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            appearance: none;
+        }
+
+        .date-input-container {
+            position: relative;
+        }
+
+        .date-input-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff8c00;
+            pointer-events: none;
+        }
+
+        #submitBtn {
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #submitBtn:hover {
+            background-color: #e67e00;
+        }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 850px) {
+            .book-content {
+                flex-direction: column;
+            }
+
+            .book-image-side {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #e67e00;
+                flex-direction: column;
+                align-items: center;
+                padding: 10px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 10px 0;
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links a:hover {
+                background-color: #ff8c00;
+                border-bottom: none;
+            }
+
+            .nav-icons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">MakeTrip</a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navbarNav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="#">Packages</a></li>
+            <li><a href="bestplaces.html">Best Place's</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="nav-icons">
+            <a href="#"><i class="fas fa-user-circle"></i></a>
+        </div>
+    </nav>
+
+    <main class="book-container">
+        <h1 class="main-heading">Book <span>Your Place</span></h1>
+        <div class="book-content">
+            <div class="book-image-side"><img
+                    src="https://img.freepik.com/premium-photo/photo-group-people-leadership-mountain-together-strong-show-teamwork-hikers_1235950-3891.jpg"
+                    alt="Group hiking in the mountains"></div>
+            <div class="book-form-side">
+                <h2 class="form-title">Book Your Place Now</h2>
+                <form id="bookingForm">
+                    <div class="form-group"><label for="destination">Where You Gone</label><input type="text"
+                            id="destination" placeholder="Where going" required></div>
+                    <div class="form-group"><label for="members">Member's</label><input type="number" id="members"
+                            placeholder="2" min="1" value="2" required></div>
+                    <div class="form-group"><label for="startDate">Journey Start On</label>
+                        <div class="date-input-container"><input type="date" id="startDate" placeholder="mm / dd / yyyy"
+                                required><i class="far fa-calendar-alt"></i></div>
+                    </div>
+                    <div class="form-group"><label for="endDate">Journey Ends On</label>
+                        <div class="date-input-container"><input type="date" id="endDate" placeholder="mm / dd / yyyy"
+                                required><i class="far fa-calendar-alt"></i></div>
+                    </div>
+                    <button type="submit" id="submitBtn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const menuToggle = document.getElementById('menuToggle');
+            const navBarNav = document.getElementById('navbarNav');
+            const form = document.getElementById('bookingForm');
+
+            // Hamburger Toggle
+            menuToggle.addEventListener('click', function () {
+                navBarNav.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+
+            // Form Submission
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const destination = document.getElementById('destination').value;
+                const submitButton = document.getElementById('submitBtn');
+                if (!destination) { alert("Please fill in all required fields."); return; }
+                submitButton.textContent = 'Processing...';
+                submitButton.disabled = true;
+                setTimeout(() => {
+                    alert(`✅ Booking for ${destination} successfully submitted!`);
+                    form.reset();
+                    submitButton.textContent = 'Submit';
+                    submitButton.disabled = false;
+                }, 2000);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

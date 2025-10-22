@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeTrip | Best Packages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* 1. Global Reset and Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        body { background-color: #f4f4f4; padding-top: 60px; color: #333; }
+
+        /* 2. Navigation Bar Styling (Consistent) */
+        .navbar {
+            background-color: #ff8c00; height: 60px; display: flex; justify-content: space-between;
+            align-items: center; padding: 0 40px; color: white; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+        .nav-links { list-style: none; display: flex; gap: 30px; font-size: 1rem; }
+        .nav-links a { color: white; padding: 0 5px; }
+        .nav-links a:hover { opacity: 0.8; border-bottom: 2px solid white; padding-bottom: 3px; }
+        .nav-icons { display: flex; gap: 20px; font-size: 1.2rem; }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; border: none; background: none; color: white; }
+        
+        /* 3. Main Content Styling */
+        .packages-container {
+            padding: 50px 20px 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .main-heading span { color: #ff8c00; }
+        
+        /* 4. Package Grid and Card Styling */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive 3-column grid */
+            gap: 30px;
+        }
+
+        .package-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px); /* Lift card on hover */
+        }
+
+        .card-image {
+            position: relative;
+            height: 220px; /* Fixed height for consistent card size */
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .card-content {
+            padding: 15px;
+            text-align: center; /* Center text as seen in the image */
+        }
+
+        .card-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #ff8c00;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        /* Play Button Overlay (Mimics the video screen) */
+        .play-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .package-card:hover .play-overlay {
+            opacity: 1;
+        }
+        .play-icon {
+            font-size: 3rem;
+            color: white;
+            opacity: 0.8;
+            border: 3px solid white;
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        /* 5. RESPONSIVENESS (Hamburger Logic) */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none; position: absolute; top: 60px; left: 0; width: 100%;
+                background-color: #e67e00; flex-direction: column; align-items: center; padding: 10px 0;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { display: block; padding: 10px 0; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            .nav-links a:hover { background-color: #ff8c00; border-bottom: none; }
+            .nav-icons { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">MakeTrip</a>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navbarNav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="packages.html">Packages</a></li>
+            <li><a href="bestplaces.html">Best Place's</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        
+        <div class="nav-icons">
+            <a href="#"><i class="fas fa-user-circle"></i></a> 
+        </div>
+    </nav>
+
+    <main class="packages-container">
+        
+        <h1 class="main-heading">Best <span>Packages</span></h1>
+
+        <div class="packages-grid" id="packagesGrid">
+            </div>
+        
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const packagesGrid = document.getElementById('packagesGrid');
+            const menuToggle = document.getElementById('menuToggle');
+            const navBarNav = document.getElementById('navbarNav');
+
+            // Hamburger Toggle
+            menuToggle.addEventListener('click', function() {
+                navBarNav.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+
+
+            // --- Package Data (Using the 8 global destinations) ---
+            const packagesData = [
+                { title: "Sistine Chapel, Vatican City", duration: "10 Day Adventure", price: "₹1,45,000", image: "https://i.natgeofe.com/n/99a8870f-1d04-43f9-b5c5-787f6a9b6712/12816882.jpg" },
+                { title: "Bora Bora", duration: "7 Day Escape", price: "₹2,50,000", image: "Bora Bora, French Polynesia", image: "https://th.bing.com/th/id/R.719e9305edcb84cab67a961f3986059b?rik=sBLNJL%2fUTS7v%2bg&riu=http%3a%2f%2f4.bp.blogspot.com%2f-gKXuUFsDBVc%2fUEm71LJt3uI%2fAAAAAAAAEgc%2fwvflE2UnxzQ%2fs1600%2fBora-Bora-French-Polynesia-2.jpg&ehk=SwzuBDBh%2fzFQM7grMdNNUIMoapuLpFggP5icKqeieiA%3d&risl=&pid=ImgRaw&r=0" },
+                { title: "Rome", duration: "5 Day History Tour", price: "₹89,999", image: "https://leosystem.travel/wp-content/uploads/2020/01/648140494.jpg" },
+                { title: "Banff National Park", duration: "8 Day Wilderness", price: "₹1,25,000", image: "https://wallpapercave.com/wp/wp2169364.jpg" },
+                { title: "Tokyo", duration: "7 Day City Exploration", price: "₹1,35,000", image: "https://img.freepik.com/free-photo/aerial-view-tokyo-cityscape-with-fuji-mountain-japan_335224-148.jpg" },
+                { title: "Serengeti National Park", duration: "6 Day Safari", price: "₹1,80,000", image: "https://i.pinimg.com/originals/c5/26/4d/c5264deeea1ac0f512361d8d32307540.jpg" },
+                { title: "Santorini", duration: "4 Day Romantic Getaway", price: "₹1,10,000", image: "https://a.cdn-hotels.com/gdcs/production18/d1838/041ae6b1-0a88-4c22-a648-53a22dd4a006.jpg" },
+                { title: "The Great Wall", duration: "8 Day Culture Trip", price: "₹95,000", image: "https://static.vecteezy.com/system/resources/previews/033/863/522/large_2x/great-wall-of-china-at-sunrise-panoramic-view-of-china-the-great-wall-of-china-in-the-mist-lying-long-surrealist-view-from-dronegraphy-8k-ai-generated-free-photo.jpg" }
+            ];
+
+
+
+
+
+
+            
+            // --- Carousel Data ---
+           const bestPlacesData = [
+                { title: "Sistine Chapel, Vatican City", image: "https://i.natgeofe.com/n/99a8870f-1d04-43f9-b5c5-787f6a9b6712/12816882.jpg" },
+                { title: "Bora Bora, French Polynesia", image: "https://th.bing.com/th/id/R.719e9305edcb84cab67a961f3986059b?rik=sBLNJL%2fUTS7v%2bg&riu=http%3a%2f%2f4.bp.blogspot.com%2f-gKXuUFsDBVc%2fUEm71LJt3uI%2fAAAAAAAAEgc%2fwvflE2UnxzQ%2fs1600%2fBora-Bora-French-Polynesia-2.jpg&ehk=SwzuBDBh%2fzFQM7grMdNNUIMoapuLpFggP5icKqeieiA%3d&risl=&pid=ImgRaw&r=0" },
+                { title: "Rome, Italy", image: "https://leosystem.travel/wp-content/uploads/2020/01/648140494.jpg" },
+                { title: "Banff National Park, Canada", image: "https://wallpapercave.com/wp/wp2169364.jpg" },
+                { title: "Tokyo, Japan", image: "https://img.freepik.com/free-photo/aerial-view-tokyo-cityscape-with-fuji-mountain-japan_335224-148.jpg" },
+                { title: "Serengeti National Park, Tanzania", image: "https://i.pinimg.com/originals/c5/26/4d/c5264deeea1ac0f512361d8d32307540.jpg" },
+                { title: "Santorini, Greece", image: "https://a.cdn-hotels.com/gdcs/production18/d1838/041ae6b1-0a88-4c22-a648-53a22dd4a006.jpg" },
+                { title: "The Great Wall, China", image: "https://static.vecteezy.com/system/resources/previews/033/863/522/large_2x/great-wall-of-china-at-sunrise-panoramic-view-of-china-the-great-wall-of-china-in-the-mist-lying-long-surrealist-view-from-dronegraphy-8k-ai-generated-free-photo.jpg" }
+            ];
+
+
+            // --- Function to create HTML for a single package card ---
+            function createPackageCard(pkg) {
+                return `
+                    <div class="package-card" onclick="alert('Viewing details for ${pkg.title} package!')">
+                        <div class="card-image">
+                            <img src="${pkg.image}" alt="${pkg.title} package image">
+                            <div class="play-overlay">
+                                <i class="fas fa-play play-icon"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3>${pkg.title}</h3>
+                            <p>${pkg.duration}</p>
+                            <span class="price">${pkg.price} Only</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Render all package cards
+            packagesGrid.innerHTML = packagesData.map(createPackageCard).join('');
+
+            console.log("%cMakeTrip Packages Page Loaded!", "color: #ff8c00; font-size: 16px; font-weight: bold;");
+        });
+    </script>
+
+</body>
+</html>

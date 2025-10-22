@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeTrip | Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* CSS for Contact Page + Responsive Menu */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        body { background-color: #000; padding-top: 60px; color: #333; }
+
+        /* Navigation */
+        .navbar { background-color: #ff8c00; height: 60px; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; color: white; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .logo { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; color: white; }
+        .nav-links { list-style: none; display: flex; gap: 30px; font-size: 1rem; }
+        .nav-links a { color: white; padding: 0 5px; }
+        .nav-links a:hover { opacity: 0.8; border-bottom: 2px solid white; padding-bottom: 3px; }
+        .nav-icons { display: flex; gap: 20px; font-size: 1.2rem; color: white; }
+        .menu-toggle { display: none; font-size: 1.5rem; cursor: pointer; border: none; background: none; color: white; }
+
+        /* Contact Content */
+        .contact-hero { min-height: calc(100vh - 60px); width: 100%; background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://source.unsplash.com/1600x900/?cityscape,night,skyscrapers'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center; padding: 50px 20px; }
+        .contact-content { background-color: rgba(0, 0, 0, 0.5); border-radius: 10px; padding: 40px; max-width: 1000px; width: 100%; color: white; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }
+        .contact-header { grid-column: 1 / -1; text-align: center; margin-bottom: 20px; }
+        .contact-header h2 { font-size: 2.5rem; margin-bottom: 15px; font-weight: bold; }
+        .contact-header p { line-height: 1.6; font-size: 0.95rem; opacity: 0.8; }
+        .contact-info { display: flex; flex-direction: column; gap: 30px; padding-right: 20px; border-right: 1px solid rgba(255, 255, 255, 0.2); }
+        .info-item { display: flex; align-items: flex-start; gap: 15px; }
+        .info-icon { font-size: 1.5rem; color: #ff8c00; }
+        .info-text { line-height: 1.4; }
+        .info-text h3 { font-size: 1.1rem; font-weight: bold; margin-bottom: 3px; }
+        .contact-form { padding-left: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; opacity: 0.8; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.5); background-color: transparent; color: white; font-size: 1rem; transition: border-bottom-color 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-bottom-color: #ff8c00; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .submit-btn { background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 1.1rem; transition: background-color 0.3s; display: block; width: 150px; margin-top: 10px; }
+        .submit-btn:hover { background-color: #0056b3; }
+        .social-icons { grid-column: 1 / -1; text-align: center; margin-top: 20px; }
+        .social-icons a { font-size: 1.5rem; margin: 0 10px; color: white; transition: color 0.3s; }
+        .social-icons a:hover { color: #ff8c00; }
+
+        /* RESPONSIVENESS */
+        @media (max-width: 800px) {
+            .contact-content { grid-template-columns: 1fr; }
+            .contact-info { border-right: none; padding-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); padding-bottom: 30px; margin-bottom: 20px; }
+            .contact-form { padding-left: 0; }
+            .submit-btn { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none; position: absolute; top: 60px; left: 0; width: 100%;
+                background-color: #e67e00; flex-direction: column; align-items: center; padding: 10px 0;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { display: block; padding: 10px 0; width: 100%; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+            .nav-links a:hover { background-color: #ff8c00; border-bottom: none; }
+            .nav-icons { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">MakeTrip</a>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navbarNav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="book.html">Book</a></li>
+            <li><a href="#">Packages</a></li>
+            <li><a href="bestplaces.html">Best Place's</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        
+        <div class="nav-icons">
+            <a href="#"><i class="fas fa-user-circle"></i></a> 
+        </div>
+    </nav>
+
+    <main class="contact-hero">
+        <div class="contact-content">
+            
+            <div class="contact-header">
+                <h2>Contact Us</h2>
+                <p>
+                    We'd love to hear from you! Whether you have questions about booking, need help planning a custom itinerary, or just want to tell us about your recent trip, our team is ready to assist. Contact us 24/7 for support.
+                </p>
+            </div>
+
+            <div class="contact-info">
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt info-icon"></i>
+                    <div class="info-text">
+                        <h3>Address</h3>
+                        <p>1400 Global Gateway Dr, Suite 300<br>Traveller's Hub, IN 46241</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-phone-alt info-icon"></i>
+                    <div class="info-text">
+                        <h3>Phone</h3>
+                        <p>+91 987-654-3210 (24/7 Helpline)</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-envelope info-icon"></i>
+                    <div class="info-text">
+                        <h3>E-mail</h3>
+                        <p>support@maketrip.com</p>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="contact-form">
+                <form id="contactForm">
+                    
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailId">E-mail Id</label>
+                        <input type="email" id="emailId" placeholder="e.g., your.email@domain.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Type your Message...</label>
+                        <textarea id="message" rows="5" placeholder="Your query or feedback..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="submit-btn">Submit</button>
+                    
+                </form>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const menuToggle = document.getElementById('menuToggle');
+            const navBarNav = document.getElementById('navbarNav');
+            const form = document.getElementById('contactForm');
+            const submitButton = document.getElementById('submitBtn');
+
+            // Hamburger Toggle
+            menuToggle.addEventListener('click', function() {
+                navBarNav.classList.toggle('active');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+            
+            // Form Submission Logic
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                const fullName = document.getElementById('fullName').value;
+                if (!fullName) { alert("Please fill in all fields to send your message."); return; }
+                
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    // UPDATED: Custom success message!
+                    alert(`✅ Thank you, ${fullName}! Your feedback has been successfully sent.`);
+                    
+                    form.reset();
+                    submitButton.textContent = 'Submit';
+                    submitButton.disabled = false;
+                }, 2000); 
+            });
+        });
+    </script>
+
+</body>
+</html>
